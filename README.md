@@ -6,7 +6,7 @@ App de notas con pipeline CI/CD completo usando GitHub Actions.
 
 ## Pipeline
 
-|   Stage    |       Trigger   | Qué hace                           |
+|   Stage    |       Trigger   | Qué hace                           | 
 |------------|-----------------|-------------------------------------|
 | lint       | todo push       | flake8 en Python, yamllint en YAML |
 | test       | después de lint | pytest con reporte de cobertura    |
