@@ -145,7 +145,7 @@ jobs:
           sleep 10
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             --max-time 10 \
-            http://localhost/health || echo "000")
+            http://localhost/ || echo "000")
           if [ "$STATUS" = "200" ]; then
             echo "Deploy exitoso — HTTP $STATUS"
           else
