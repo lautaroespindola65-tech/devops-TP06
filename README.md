@@ -2,7 +2,7 @@
 
 ![CI/CD Pipeline](https://github.com/TU_USUARIO/devops-TP06/actions/workflows/cicd.yml/badge.svg)
 
-App de notas con pipeline CI/CD completo usando GitHub Actions.
+App de notas con pipeline CI/CD completo usando GitHub Actions. 
 
 ## Pipeline
 
