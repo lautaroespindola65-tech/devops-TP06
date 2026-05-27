@@ -29,3 +29,21 @@ pip install -r requirements.txt
 pytest tests/ -v --cov=. --cov-report=term-missing
 ```
 
+## ⚠️ Nota sobre el step de Deploy
+
+El job `deploy` del pipeline realiza un deploy via SSH a un servidor externo.
+Para reproducirlo se requiere:
+
+- Un servidor Linux con Docker y Docker Compose instalados
+- Acceso SSH con usuario `root` (o equivalente con permisos Docker)
+- El directorio `/opt/devops-portfolio/` con el `docker-compose.yml` presente
+- Los siguientes secrets configurados en el repo:
+
+| Secret | Descripción |
+|--------|-------------|
+| `DEPLOY_HOST` | IP o dominio del servidor de deploy |
+| `DEPLOY_USER` | Usuario SSH del servidor |
+| `DEPLOY_SSH_KEY` | Clave privada SSH (contenido completo del archivo) |
+
+> Durante la entrega del TP07 el deploy se ejecutó sobre un entorno
+> efímero de [KillerCoda](https://killercoda.com) (Ubuntu playground).
