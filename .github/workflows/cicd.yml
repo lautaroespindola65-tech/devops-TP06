@@ -1,35 +1,24 @@
 deploy:
     name: Deploy
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: build-push
     if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Agregar host a known_hosts
+      - name: Deploy con Docker Compose
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          strict_host_key_checking: false
-          script: |
-            cd /opt/devops-portfolio
-            docker compose pull
-            docker compose up -d --remove-orphans
-            docker image prune -f
-            echo "Deploy completado: $(date)"
+          cd /opt/devops-portfolio
+          docker compose pull
+          docker compose up -d --remove-orphans
+          docker image prune -f
+          echo "Deploy completado: $(date)"
 
       - name: Healthcheck post-deploy
         run: |
           sleep 10
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             --max-time 10 \
-            "http://${{ secrets.DEPLOY_HOST }}/health" || echo "000")
+            http://localhost/health || echo "000")
           if [ "$STATUS" = "200" ]; then
             echo "Deploy exitoso — HTTP $STATUS"
           else
